@@ -1,0 +1,28 @@
+<h1>Listing fbooks</h1>
+
+<%= link_to 'Check For New Images', new_fbook_path %> |
+
+<%= link_to 'Seed Facebook URLs', seed_path %>
+
+<br>
+<table>
+  <br>
+  <tr>
+    <th>Url</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @fbooks.each do |fbook| %>
+  <tr>
+    <td><img src="<%= fbook.url %>" height="100" /></a></td>
+    <td><%= fbook.url %></td>
+    <td><%= link_to 'Show', fbook %></td>
+    <td><%= link_to 'Edit', edit_fbook_path(fbook) %></td>
+    <td><%= link_to 'Destroy', fbook, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />

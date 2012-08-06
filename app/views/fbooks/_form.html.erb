@@ -1,0 +1,21 @@
+<%= form_for(@fbook) do |f| %>
+  <% if @fbook.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@fbook.errors.count, "error") %> prohibited this fbook from being saved:</h2>
+
+      <ul>
+      <% @fbook.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :access %><br />
+    <%= f.text_field :access %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

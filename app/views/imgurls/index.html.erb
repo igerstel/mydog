@@ -1,0 +1,23 @@
+<h1>Listing imgurls</h1>
+
+<table>
+  <tr>
+    <th>Url</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @imgurls.each do |imgurl| %>
+  <tr>
+    <td><%= imgurl.url %></td>
+    <td><%= link_to 'Show', imgurl %></td>
+    <td><%= link_to 'Edit', edit_imgurl_path(imgurl) %></td>
+    <td><%= link_to 'Destroy', imgurl, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Imgurl', new_imgurl_path %>

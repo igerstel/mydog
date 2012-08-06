@@ -1,0 +1,2 @@
+module ImgurlsHelper
+end

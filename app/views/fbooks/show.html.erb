@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Url:</b>
+  <%= @fbook.url %>
+</p>
+
+<p>
+<img src="<%= @fbook.url %>" /></a>
+</p>
+
+
+<%= link_to 'Edit', edit_fbook_path(@fbook) %> |
+<%= link_to 'Back', fbooks_path %>
