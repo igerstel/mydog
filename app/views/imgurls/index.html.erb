@@ -1,5 +1,8 @@
-<h1>Listing imgurls</h1>
+<h1>Listing Imgur pics</h1>
 
+<%= render 'branched' %>
+
+<%= @imgurls.count %> pictures
 <table>
   <tr>
     <th>Url</th>
@@ -20,4 +23,4 @@
 
 <br />
 
-<%= link_to 'New Imgurl', new_imgurl_path %>
+<%= render 'branched' %>

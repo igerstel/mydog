@@ -40,7 +40,37 @@ class ImgurlsController < ApplicationController
   # POST /imgurls
   # POST /imgurls.json
   def create
-    @imgurl = Imgurl.new(params[:imgurl])
+#    @imgurl = Imgurl.new(params[:imgurl])
+    @fbooks = Fbook.all
+
+    fb = @fbooks.first
+
+    url = "http://api.imgur.com/2/upload.json?image=#{fb.url}&key=#{@imgurl.api}"
+
+    response = open(url).read
+    json_response = JSON.parse(response)
+    @posts = json_response["data"]      
+    newfb = @posts.select { |post| post["images"].present? }
+
+    @fbooks = Fbook.all
+    newfb.each do |nfb|
+      flag = 0
+      @fbooks.each do |fbs|
+        if nfb["source"] == fbs.url
+          flag = 1
+          break
+        end
+      end
+      if flag == 0
+        @fbook = Fbook.new
+        @fbook.url = nfb["source"]
+        @fbook.save
+      end
+    end
+
+
+
+
 
     respond_to do |format|
       if @imgurl.save

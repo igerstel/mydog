@@ -7,7 +7,6 @@ require 'open-uri'
 
   def seed
 
-
   end
 
 
@@ -38,7 +37,6 @@ require 'open-uri'
   # GET /fbooks/new
   # GET /fbooks/new.json
   def new
-
     @fbook = Fbook.new
 
     respond_to do |format|

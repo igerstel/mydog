@@ -1,9 +1,8 @@
 <h1>Listing fbooks</h1>
 
-<%= link_to 'Check For New Images', new_fbook_path %> |
+<%= render 'branched' %>
 
-<%= link_to 'Seed Facebook URLs', seed_path %>
-
+<%= @fbooks.count %> pictures
 <br>
 <table>
   <br>
@@ -26,3 +25,5 @@
 </table>
 
 <br />
+
+<%= render 'branched' %>

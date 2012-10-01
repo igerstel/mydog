@@ -6,7 +6,11 @@ Mydog::Application.routes.draw do
 
   resources :fbooks
 
-root :to => 'Fbooks#index'
+  resources :reddits
+
+  get "/lists" => 'Lists#index', :as => :lists
+
+root :to => 'Lists#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
