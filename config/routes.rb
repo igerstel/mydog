@@ -1,6 +1,8 @@
 Mydog::Application.routes.draw do
 
-  get "/fbooks/seed" => 'Fbooks#seed', :as => :seed
+  get "/fbooks/seed" => 'Fbooks#seed', :as => :fbooks_seed
+
+  # get "/imgurls/upload" => 'Imgurls#upload', :as => :upload_imgurls
 
   resources :imgurls
 

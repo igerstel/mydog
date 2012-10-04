@@ -13,6 +13,7 @@
 
 <% @imgurls.each do |imgurl| %>
   <tr>
+    <td><img src="<%= imgurl.url %>" height="100"></td>
     <td><%= imgurl.url %></td>
     <td><%= link_to 'Show', imgurl %></td>
     <td><%= link_to 'Edit', edit_imgurl_path(imgurl) %></td>

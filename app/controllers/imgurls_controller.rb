@@ -1,4 +1,5 @@
 class ImgurlsController < ApplicationController
+
   # GET /imgurls
   # GET /imgurls.json
   def index
@@ -24,12 +25,13 @@ class ImgurlsController < ApplicationController
   # GET /imgurls/new
   # GET /imgurls/new.json
   def new
-    @imgurl = Imgurl.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @imgurl }
-    end
+    # @imgurl = Imgurl.new
+
+    # respond_to do |format|
+    #   format.html # new.html.erb
+    #   format.json { render json: @imgurl }
+    # end
   end
 
   # GET /imgurls/1/edit
@@ -40,37 +42,15 @@ class ImgurlsController < ApplicationController
   # POST /imgurls
   # POST /imgurls.json
   def create
-#    @imgurl = Imgurl.new(params[:imgurl])
-    @fbooks = Fbook.all
+    @fbooks = Fbook.find_all_by_inimgur(false)
 
-    fb = @fbooks.first
-
-    url = "http://api.imgur.com/2/upload.json?image=#{fb.url}&key=#{@imgurl.api}"
-
-    response = open(url).read
-    json_response = JSON.parse(response)
-    @posts = json_response["data"]      
-    newfb = @posts.select { |post| post["images"].present? }
-
-    @fbooks = Fbook.all
-    newfb.each do |nfb|
-      flag = 0
-      @fbooks.each do |fbs|
-        if nfb["source"] == fbs.url
-          flag = 1
-          break
-        end
-      end
-      if flag == 0
-        @fbook = Fbook.new
-        @fbook.url = nfb["source"]
-        @fbook.save
-      end
+    @fbooks.each do |fb|
+      @imgurl = Imgurl.new
+      @imgurl.url = @imgurl.upload(@imgurl.api, fb.url)
+      @imgurl.save
+      fb.inimgur = true
+      fb.save
     end
-
-
-
-
 
     respond_to do |format|
       if @imgurl.save

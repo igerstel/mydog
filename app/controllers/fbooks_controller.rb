@@ -2,19 +2,23 @@ class FbooksController < ApplicationController
 require 'json' 
 require 'open-uri'
 
+  def seed
+    @fbooks = Fbook.all
+    filename = 'fbseed.txt'
+
+    open(filename, 'w') do |f|
+      @fbooks.each do |hash|
+        f.puts "#{hash['url']} #{hash['inimgur']}"
+      end      
+    end
+
+    redirect_to fbooks_url
+  end
+
   # GET /fbooks
   # GET /fbooks.json
 
-  def seed
-
-  end
-
-
   def index
-    access = 'AAACEdEose0cBAJReULHbBywwzNQGzpKp9ZCUEBl1lvxzgebFNXCTfnz5Rf89X6o2sZA3Ij0MWqtUeEYjxlLd1UbGPlmUQZCtuppbG246wZDZD'  
-    # 2011 < url = "https://graph.facebook.com/272989652716535/photos?access_token=#{access}&limit=200"
-    url = "https://graph.facebook.com/373528459329320/photos?access_token=#{access}&limit=200"
-      # 2012 album
     @fbooks = Fbook.all
 
     respond_to do |format|
@@ -53,6 +57,9 @@ require 'open-uri'
   # POST /fbooks
   # POST /fbooks.json
   def create
+    # 2011
+    # url = "https://graph.facebook.com/272989652716535/photos?access_token=#{access}&limit=200"
+    # 2012 album    
     url = "https://graph.facebook.com/373528459329320/photos?access_token=#{access}&limit=200"
 
     response = open(url).read
@@ -77,7 +84,7 @@ require 'open-uri'
     end
 
     respond_to do |format|
-      if @fbook.save
+      if @fbook.present? && @fbook.save
         format.html { redirect_to @fbook, notice: 'Fbook was successfully created.' }
         format.json { render json: @fbook, status: :created, location: @fbook }
       else
