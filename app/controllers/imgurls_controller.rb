@@ -1,5 +1,18 @@
 class ImgurlsController < ApplicationController
 
+  def seed
+    @imgurls = Imgurl.all
+    filename = 'imgurseed.txt'
+
+    open(filename, 'w') do |f|
+      @imgurls.each do |hash|
+        f.puts "#{hash['url']}"
+      end      
+    end
+
+    redirect_to imgurls_url
+  end
+
   # GET /imgurls
   # GET /imgurls.json
   def index

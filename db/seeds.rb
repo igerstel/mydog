@@ -7,10 +7,19 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Fbook.destroy_all
-
-puts "Creating Facebook URLs."
+puts "Populating Facebook URLs."
 File.open('fbseed.txt').each_line do |line|
 	fbook = Fbook.create
 	fbook.url,fbook.inimgur = line.split
 	fbook.save
 end
+
+Imgurl.destroy_all
+puts "Populating Imgur URLs."
+File.open('imgurseed.txt').each_line do |line|
+	imgurl = Imgurl.create
+	imgurl.url = line
+	imgurl.save
+end
+
+
