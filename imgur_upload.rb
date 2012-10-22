@@ -1,8 +1,7 @@
-require 'rubygems'
+# require 'rubygems'
 require 'rest_client'
 require 'open-uri'
-# require 'nethttp'
-# require 'json'
+require 'json'
 
 def imgur(key, file_path)
   url        = "http://imgur.com/api/upload.json"

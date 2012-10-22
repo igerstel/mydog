@@ -1,4 +1,31 @@
 class RedditsController < ApplicationController
+  
+  def defaultsearch
+    url = "http://www.reddit.com/search.json?q=dog+reddit%3Afunny+OR+reddit%3Apics&sort=new&restrict_sr=off"
+    getresponse(url)
+  end
+
+  def customsearch(subreddit)
+    url = "http://www.reddit.com/search.json?q=dog+reddit%3A#{subreddit}&sort=new&restrict_sr=off"
+    getresponse(url)
+  end
+
+  def getresponse(url)
+    response = RestClient.get(url)
+    reddit = JSON.parse(response.body, :max_nesting => false) rescue nil
+    reddit = reddit["data"]["children"]
+    reddit_url = []
+    c = 0   
+    reddit.count.times do |r|
+      if Time.at(reddit[r]["data"]["created_utc"]).to_datetime > Time.now-100000
+        reddit_url[c] = reddit[r]["data"]
+        c += 1
+      end
+    end
+
+    return reddit_url
+  end
+
   # GET /reddits
   # GET /reddits.json
   def index
@@ -40,7 +67,13 @@ class RedditsController < ApplicationController
   # POST /reddits
   # POST /reddits.json
   def create
-    @reddit = Reddit.new(params[:reddit])
+    params[:url].present? reddit_list = customsearch(:url) | reddit_list = defaultsearch
+    reddit_list.count.times do |list|
+      @reddit = Reddit.new
+      @reddit.url = reddit_list[list]["permalink"]
+      @reddit.img = reddit_list[list]["url"]
+      @reddit.save
+    end
 
     respond_to do |format|
       if @reddit.save

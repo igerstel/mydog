@@ -2,7 +2,10 @@
 
 <table>
   <tr>
-    <th>Url</th>
+    <th>Image</th>
+    <th>Threads</th>
+    <th>Commented already?</th>
+    <th>REPLY!</th>
     <th></th>
     <th></th>
     <th></th>
@@ -10,10 +13,13 @@
 
 <% @reddits.each do |reddit| %>
   <tr>
+    <td><img src="<%= reddit.img %>" height="100"></td>
     <td><%= reddit.url %></td>
+    <td><%= reddit.commented %></td>
+    
     <td><%= link_to 'Show', reddit %></td>
     <td><%= link_to 'Edit', edit_reddit_path(reddit) %></td>
-    <td><%= link_to 'Destroy', reddit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Destroy', reddit, method: :delete, data: { confirm: 'Are you sure?' } %> </td>
   </tr>
 <% end %>
 </table>
