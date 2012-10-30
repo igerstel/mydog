@@ -67,7 +67,7 @@ class RedditsController < ApplicationController
   # POST /reddits
   # POST /reddits.json
   def create
-    params[:url].present? reddit_list = customsearch(:url) | reddit_list = defaultsearch
+    params.has_key(:url) ? reddit_list = customsearch(:url) : reddit_list = defaultsearch
     reddit_list.count.times do |list|
       @reddit = Reddit.new
       @reddit.url = reddit_list[list]["permalink"]

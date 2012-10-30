@@ -8,8 +8,6 @@ http://sphotos-a.xx.fbcdn.net/hphotos-ash4/s720x720/409455_373528709329295_17849
 http://sphotos-b.xx.fbcdn.net/hphotos-ash4/s720x720/417348_373528739329292_2091943646_n.jpg true
 http://sphotos-b.xx.fbcdn.net/hphotos-ash4/s720x720/401295_373528775995955_1468531814_n.jpg true
 http://sphotos-b.xx.fbcdn.net/hphotos-snc7/s720x720/430422_412562212092611_854027574_n.jpg true
-http://sphotos-a.xx.fbcdn.net/hphotos-ash4/s720x720/310080_415773071771525_672984932_n.jpg true
-http://sphotos-b.xx.fbcdn.net/hphotos-snc7/s720x720/389186_415773108438188_1235059885_n.jpg true
 http://sphotos-b.xx.fbcdn.net/hphotos-snc7/s720x720/403985_415773135104852_1951723193_n.jpg true
 http://sphotos-b.xx.fbcdn.net/hphotos-ash4/s720x720/480727_415773181771514_821926896_n.jpg true
 http://sphotos-b.xx.fbcdn.net/hphotos-ash4/s720x720/486365_415773211771511_9052086_n.jpg true
@@ -23,7 +21,6 @@ http://sphotos-b.xx.fbcdn.net/hphotos-ash3/s720x720/529300_427361233946042_11090
 http://sphotos-b.xx.fbcdn.net/hphotos-ash3/s720x720/562528_427361250612707_391934123_n.jpg true
 http://sphotos-b.xx.fbcdn.net/hphotos-ash3/s720x720/532191_490394447642720_344226844_n.jpg true
 http://sphotos-b.xx.fbcdn.net/hphotos-ash4/s720x720/396063_501512493197582_925803876_n.jpg true
-http://sphotos-a.xx.fbcdn.net/hphotos-ash4/s720x720/387020_511463748869123_1629507996_n.jpg true
 http://sphotos-a.xx.fbcdn.net/hphotos-prn1/s720x720/562932_515451068470391_1542759738_n.jpg true
 http://sphotos-a.xx.fbcdn.net/hphotos-snc7/294032_272989676049866_3819365_n.jpg true
 http://sphotos-a.xx.fbcdn.net/hphotos-ash4/295187_272989699383197_2435389_n.jpg true
@@ -75,3 +72,7 @@ http://sphotos-b.xx.fbcdn.net/hphotos-snc7/s720x720/381697_349924141689752_85233
 http://sphotos-b.xx.fbcdn.net/hphotos-ash4/s720x720/405749_353769721305194_1208330682_n.jpg true
 http://sphotos-b.xx.fbcdn.net/hphotos-snc7/s720x720/397039_353923457956487_1043824412_n.jpg true
 http://sphotos-b.xx.fbcdn.net/hphotos-prn1/643986_539068526108645_1745011241_n.jpg true
+http://sphotos-g.ak.fbcdn.net/hphotos-ak-ash4/s720x720/310080_415773071771525_672984932_n.jpg false
+http://sphotos-f.ak.fbcdn.net/hphotos-ak-snc7/s720x720/389186_415773108438188_1235059885_n.jpg false
+http://sphotos-e.ak.fbcdn.net/hphotos-ak-ash4/s720x720/387020_511463748869123_1629507996_n.jpg false
+http://sphotos-g.ak.fbcdn.net/hphotos-ak-ash3/s720x720/548467_550196008329230_921586771_n.jpg false
