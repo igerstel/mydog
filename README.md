@@ -1,0 +1,1 @@
+Once I get the Reddit posting finished, there is a lot of MCV refactoring to do. It's a hot mess right now, with way too much junk in the controller. Just wanted everyone to know I'm aware of that. :D
