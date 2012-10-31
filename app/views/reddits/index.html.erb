@@ -1,10 +1,14 @@
-<h1>Listing reddits</h1>
+<h1>Listing Reddits</h1>
 
+<%= render 'branched' %>
+
+
+<%= @reddits.count %> threads listed.
 <table>
   <tr>
     <th>Image</th>
     <th>Threads</th>
-    <th>Commented already?</th>
+    <th>Replied?</th>
     <th>REPLY!</th>
     <th></th>
     <th></th>
@@ -26,4 +30,4 @@
 
 <br />
 
-<%= link_to 'New Search', new_reddit_path %>
+<%= link_to 'New Search', new_reddit_path %> | <%= render 'branched' %>
