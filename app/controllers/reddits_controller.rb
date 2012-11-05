@@ -26,6 +26,13 @@ class RedditsController < ApplicationController
     return reddit_url
   end
 
+  def login
+    url = "http://www.reddit.com/api/login/thatlookslikemydog?user=thatlookslikemydog&passwd=asdfasdf1&api_type=json"
+    response = RestClient.post(url)
+    loginfo = JSON.parse(response.body, :max_nesting => false) rescue nil
+
+  end
+
   def comment
     url = "http://www.reddit.com/api/comment"
     # params[:name on reddit, and :id from my db]
