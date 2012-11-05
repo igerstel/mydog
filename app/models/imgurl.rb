@@ -1,7 +1,7 @@
 class Imgurl < ActiveRecord::Base
   attr_accessible :url
 
-	require 'open-uri'
+	# require 'open-uri'
 
   def api
     File.open('C:\Sites\dev\imgur_api.txt').readline.to_s

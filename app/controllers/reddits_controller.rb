@@ -34,11 +34,25 @@ class RedditsController < ApplicationController
   end
 
   def comment
+    pword = Reddit.api
+    userhash = { 'user' => 'thatlookslikemydog', 'passwd' => pword, 'api_type' => 'json' }
+    headers = { 'user-agent' => 'Thatlookslikemydog dog finder app' }
+    url = 'http://www.reddit.com/api/login'    
+    response = RestClient.post url, userhash, headers
+    respjson = JSON.parse(response)
+    modhash = respjson["json"]["data"]["modhash"]
+
+
+
     url = "http://www.reddit.com/api/comment"
     # params[:name on reddit, and :id from my db]
     # api_type=json&user=thatlookslikemydog&passwd=----
-  end
+
+# login: http://www.reddit.com/api/login/{username}?user=thatlookslikemydog&passwd=------&api_type=json
+# modhash: 0exsgsg8cp771f25f7275f58d6a61320e6e1b6c9b25f791c5f
 # http://www.reddit.com/api/comment?parent=t3_12cvot&text=%3Ca%20href%3D%22http%3A%2F%2Fi.imgur.com%2F6PKHo.jpg%22%3EHey%2C%20that%20looks%20like%20my%20dog!%3C%2Fa%3E
+  end
+
 
   # GET /reddits
   # GET /reddits.json
@@ -88,15 +102,13 @@ class RedditsController < ApplicationController
       @reddit.img = reddit_list[list]["url"]
       # if ((reddit_list[list]["url"].split.last.length <= 4) && (reddit_list[list]["url"].split('.')[0].include? 'imgur'))
 
-       ((reddit_list[list]["url"].split.last.length <= 4) && (reddit_list[list]["url"].include? 'imgur')) ? @reddit.img = reddit_list[list]["url"] : @reddit.img = reddit_list[list]["url"] + '.jpg'# ((reddit_list[list]["url"].split.last.length <= 4) && (reddit_list[list]["url"].split('.')[0].include? 'imgur')) ? @reddit.img = reddit_list[list]["url"] : @reddit.img = reddit_list[list]["url"] + '.jpg'
+       ((reddit_list[list]["url"].split.last.length <= 4) && (reddit_list[list]["url"].include? 'imgur')) ? @reddit.img = reddit_list[list]["url"] : @reddit.img = reddit_list[list]["url"] + '.jpg'
       @reddit.save
     end
 
     oldest = Reddit.last.id-100
     if oldest > 1
       Reddit.destroy_all("id <= #{oldest}")
-      # @old = Reddit.find(:id < @reddit.id-100)
-      # Reddit.destroy_all(['id NOT IN (?)', @old(&:id)])
     end
 
     respond_to do |format|
