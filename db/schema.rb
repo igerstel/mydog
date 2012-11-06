@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121021223002) do
+ActiveRecord::Schema.define(:version => 20121106181357) do
 
   create_table "fbooks", :force => true do |t|
     t.string   "url"
@@ -31,9 +31,9 @@ ActiveRecord::Schema.define(:version => 20121021223002) do
     t.string   "url"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
-    t.boolean  "found",      :default => false
     t.boolean  "commented",  :default => false
     t.string   "img"
+    t.string   "name"
   end
 
 end

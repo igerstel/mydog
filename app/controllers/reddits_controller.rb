@@ -25,85 +25,56 @@ class RedditsController < ApplicationController
 
     return reddit_url
   end
+ 
+ def postcomment
+    @reddit = Reddit.find_by_id(params[:id])
+    @imgurls = Imgurl.all
+    @reddit.commented = true
+    @reddit.save
+    name = @reddit.name
+    doggeh = @imgurls[rand(@imgurls.count)].url.split[0]
 
-  def login
-    url = "http://www.reddit.com/api/login/thatlookslikemydog?user=thatlookslikemydog&passwd=asdfasdf1&api_type=json"
-    response = RestClient.post(url)
-    loginfo = JSON.parse(response.body, :max_nesting => false) rescue nil
-
-  end
-
-
-  def comment
-    pword = Reddit.api
+    pword = File.open('C:\Sites\dev\reddit_api.txt').readline.to_s
     userhash = { 'user' => 'thatlookslikemydog', 'passwd' => pword, 'api_type' => 'json' }
     headers = { 'user-agent' => 'Thatlookslikemydog dog finder app' }
-    url = 'http://www.reddit.com/api/login'    
+    url = 'https://ssl.reddit.com/api/login'    
     response = RestClient.post url, userhash, headers
     respjson = JSON.parse(response)
     modhash = respjson["json"]["data"]["modhash"]
-    cookie = respjson["json"]["data"]["cookie"]
-    :cookies => {'reddit_session' => cookie }
 
-    url = "http://www.reddit.com/api/comment"
-    # params[:name on reddit, and :id from my db]
-    # api_type=json&user=thatlookslikemydog&passwd=----
+    posturl = "http://www.reddit.com/api/comment"
+    cookie = response.headers[:set_cookie]
+    postheaders = { :cookie => cookie, 'user-agent' => 'Thatlookslikemydog dog finder app' }
+    posting = { 'parent' => name, 'text' => "Hey, that looks like my dog! #{doggeh}", 'uh' => modhash, 'api_type' => 'json' }
+    postresponse = RestClient.post posturl, posting, :cookie => cookie  #postheaders
 
-# login: http://www.reddit.com/api/login/{username}?user=thatlookslikemydog&passwd=------&api_type=json
-# modhash: 0exsgsg8cp771f25f7275f58d6a61320e6e1b6c9b25f791c5f
-# http://www.reddit.com/api/comment?parent=t3_12cvot&text=%3Ca%20href%3D%22http%3A%2F%2Fi.imgur.com%2F6PKHo.jpg%22%3EHey%2C%20that%20looks%20like%20my%20dog!%3C%2Fa%3E
+    redirect_to reddits_url
   end
 
-
-  # GET /reddits
-  # GET /reddits.json
   def index
     @reddits = Reddit.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @reddits }
     end
   end
 
-  # GET /reddits/1
-  # GET /reddits/1.json
-  def show
-    @reddit = Reddit.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @reddit }
-    end
-  end
-
-  # GET /reddits/new
-  # GET /reddits/new.json
   def new
     @reddit = Reddit.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @reddit }
     end
   end
 
-  # GET /reddits/1/edit
-  def edit
-    @reddit = Reddit.find(params[:id])
-  end
-
-  # POST /reddits
-  # POST /reddits.json
   def create
     params.empty? ? reddit_list = customsearch(:url) : reddit_list = defaultsearch
     reddit_list.count.times do |list|
       @reddit = Reddit.new
       @reddit.url = reddit_list[list]["permalink"]
+      @reddit.name = reddit_list[list]["name"]
       @reddit.img = reddit_list[list]["url"]
-      # if ((reddit_list[list]["url"].split.last.length <= 4) && (reddit_list[list]["url"].split('.')[0].include? 'imgur'))
-
-       ((reddit_list[list]["url"].split.last.length <= 4) && (reddit_list[list]["url"].include? 'imgur')) ? @reddit.img = reddit_list[list]["url"] : @reddit.img = reddit_list[list]["url"] + '.jpg'
+      ((reddit_list[list]["url"].split.last.length <= 4) && (reddit_list[list]["url"].include? 'imgur')) ? @reddit.img = reddit_list[list]["url"] : @reddit.img = reddit_list[list]["url"] + '.jpg'
       @reddit.save
     end
 
@@ -114,40 +85,11 @@ class RedditsController < ApplicationController
 
     respond_to do |format|
       if @reddit.save
-        format.html { redirect_to @reddit, notice: 'Reddit was successfully created.' }
-        format.json { render json: @reddit, status: :created, location: @reddit }
+        format.html { redirect_to reddits_url, notice: 'Reddit was successfully created.' }
       else
         format.html { render action: "new" }
-        format.json { render json: @reddit.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PUT /reddits/1
-  # PUT /reddits/1.json
-  def update
-    @reddit = Reddit.find(params[:id])
-
-    respond_to do |format|
-      if @reddit.update_attributes(params[:reddit])
-        format.html { redirect_to @reddit, notice: 'Reddit was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @reddit.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /reddits/1
-  # DELETE /reddits/1.json
-  def destroy
-    @reddit = Reddit.find(params[:id])
-    @reddit.destroy
-
-    respond_to do |format|
-      format.html { redirect_to reddits_url }
-      format.json { head :no_content }
-    end
-  end
 end

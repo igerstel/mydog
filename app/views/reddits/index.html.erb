@@ -1,13 +1,12 @@
 <h1>Listing Reddits</h1>
 
-<%= render 'branched' %>
+<%= link_to 'New Search', new_reddit_path %> | <%= render 'branched' %>
 
 
 <%= @reddits.count %> threads listed.
 <table>
   <tr>
     <th>Image</th>
-    <th>Threads</th>
     <th>Replied?</th>
     <th>REPLY!</th>
     <th></th>
@@ -15,17 +14,14 @@
     <th></th>
   </tr>
 
-<% @reddits.each do |reddit| %>
-  <tr>
-    <td><img src="<%= reddit.img %>" height="100"></td>
-    <td><%= reddit.url %></td>
-    <td><%= reddit.commented %></td>
-    
-    <td><%= link_to 'Show', reddit %></td>
-    <td><%= link_to 'Edit', edit_reddit_path(reddit) %></td>
-    <td><%= link_to 'Destroy', reddit, method: :delete, data: { confirm: 'Are you sure?' } %> </td>
-  </tr>
-<% end %>
+  <% @reddits.each do |reddit| %>
+    <tr>
+      <td><img src="<%= reddit.img %>" height="100"> <%= link_to "http://www.reddit.com#{reddit.url}", "http://www.reddit.com#{reddit.url}" %></td>
+      <td><%= reddit.commented %></td>
+      
+      <td><%= link_to 'REPLY!', comment_url(reddit.id), :method => "post" %></td>
+    </tr>
+  <% end %>
 </table>
 
 <br />

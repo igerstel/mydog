@@ -7,18 +7,15 @@
 <table>
   <br>
   <tr>
+    <th>Image</th>
     <th>Url</th>
-    <th></th>
-    <th></th>
     <th></th>
   </tr>
 
 <% @fbooks.each do |fbook| %>
   <tr>
-    <td><img src="<%= fbook.url %>" height="100" /></a></td>
+    <td><img src="<%= fbook.url %>" height="100"></td>
     <td><%= fbook.url %></td>
-    <td><%= link_to 'Show', fbook %></td>
-    <td><%= link_to 'Edit', edit_fbook_path(fbook) %></td>
     <td><%= link_to 'Destroy', fbook, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
