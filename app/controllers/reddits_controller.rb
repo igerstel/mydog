@@ -33,6 +33,7 @@ class RedditsController < ApplicationController
 
   end
 
+
   def comment
     pword = Reddit.api
     userhash = { 'user' => 'thatlookslikemydog', 'passwd' => pword, 'api_type' => 'json' }
@@ -41,8 +42,8 @@ class RedditsController < ApplicationController
     response = RestClient.post url, userhash, headers
     respjson = JSON.parse(response)
     modhash = respjson["json"]["data"]["modhash"]
-
-
+    cookie = respjson["json"]["data"]["cookie"]
+    :cookies => {'reddit_session' => cookie }
 
     url = "http://www.reddit.com/api/comment"
     # params[:name on reddit, and :id from my db]
