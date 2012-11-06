@@ -27,21 +27,29 @@ class RedditsController < ApplicationController
   end
 
   def comment
-    pword = Reddit.api
+    pword = Reddit.api  # make this a constant? same for imgur...?
     userhash = { 'user' => 'thatlookslikemydog', 'passwd' => pword, 'api_type' => 'json' }
     headers = { 'user-agent' => 'Thatlookslikemydog dog finder app' }
-    url = 'http://www.reddit.com/api/login'    
+    url = 'https://ssl.reddit.com/api/login'    
     response = RestClient.post url, userhash, headers
     respjson = JSON.parse(response)
     modhash = respjson["json"]["data"]["modhash"]
 
+    name = 't3_12fswy'
+    url2 = "http://www.reddit.com/api/comment"
 
+    rs = response.headers[:set_cookie]
+    headers2 = { 'user-agent' => 'Thatlookslikemydog dog finder app', :cookie => rs }
 
-    url = "http://www.reddit.com/api/comment"
+    posting = { 'parent' => name, 'text' => '<a href="http://i.imgur.com/2hmPa.jpg">Hey, that looks like my dog!</a>', 'uh' => modhash, 'api_type' => 'json' } 
+    # posting = { 'thing_id' => name, 'text' => '<a href="http://i.imgur.com/2hmPa.jpg">Hey, that looks like my dog!</a>', 'uh' => modhash }
+    response2 = RestClient.post url2, posting, headers2, :cookie => rs
+    respjson2 = JSON.parse(response2)
+
     # params[:name on reddit, and :id from my db]
     # api_type=json&user=thatlookslikemydog&passwd=----
 
-# login: http://www.reddit.com/api/login/{username}?user=thatlookslikemydog&passwd=------&api_type=json
+# login: http://www.reddit.com/api/login/thatlookslikemydog?user=thatlookslikemydog&passwd=------&api_type=json
 # modhash: 0exsgsg8cp771f25f7275f58d6a61320e6e1b6c9b25f791c5f
 # http://www.reddit.com/api/comment?parent=t3_12cvot&text=%3Ca%20href%3D%22http%3A%2F%2Fi.imgur.com%2F6PKHo.jpg%22%3EHey%2C%20that%20looks%20like%20my%20dog!%3C%2Fa%3E
   end
