@@ -11,6 +11,7 @@ gem 'sqlite3'
 
 gem 'rest-client'
 gem 'json'
+gem 'open-uri'
 
 # Gems used only for assets and not required
 # in production environments by default.

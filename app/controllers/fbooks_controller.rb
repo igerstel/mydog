@@ -1,4 +1,5 @@
 class FbooksController < ApplicationController
+  require 'open-uri'
 
   def seed
     @fbooks = Fbook.all
@@ -31,7 +32,9 @@ class FbooksController < ApplicationController
 
   def create
     # 2011 album url = "https://graph.facebook.com/272989652716535/photos?access_token=#{access}&limit=200"
-    # 2012 album    
+    # 2012 album
+    @fbook = Fbook.new(params[:fbook])
+    access = @fbook.access
     url = "https://graph.facebook.com/373528459329320/photos?access_token=#{access}&limit=200"
 
     response = open(url).read
